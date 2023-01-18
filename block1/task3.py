@@ -1,6 +1,6 @@
 class Solution(object):
 
-    def maximumWealth(self, accounts):
+    def maximum_wealth(self, accounts):
         richest = 0
         for acc in accounts:
             bank = 0

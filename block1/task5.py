@@ -1,6 +1,6 @@
 class Solution:
-    def romanToInt(self, s: str) -> int:
-        Roman = {'I': 1,
+    def roman_to_int(self, s: str) -> int:
+        roman = {'I': 1,
                  'V': 5,
                  'X': 10,
                  'L': 50,
@@ -8,16 +8,16 @@ class Solution:
                  'D': 500,
                  'M': 1000}
 
-        romanList = [char for char in s]
+        roman_list = [char for char in s]
         sum = 0
-        for index in range(len(romanList)):
-            if index != len(romanList) - 1:
-                if romanList[index] == 'I' and (romanList[index + 1] == 'V' or romanList[index + 1] == 'X'):
+        for index in range(len(roman_list)):
+            if index != len(roman_list) - 1:
+                if roman_list[index] == 'I' and (roman_list[index + 1] == 'V' or roman_list[index + 1] == 'X'):
                     sum -= 2
-                elif romanList[index] == 'X' and (romanList[index + 1] == 'L' or romanList[index + 1] == 'C'):
+                elif roman_list[index] == 'X' and (roman_list[index + 1] == 'L' or roman_list[index + 1] == 'C'):
                     sum -= 20
-                elif romanList[index] == 'C' and (romanList[index + 1] == 'D' or romanList[index + 1] == 'M'):
+                elif roman_list[index] == 'C' and (roman_list[index + 1] == 'D' or roman_list[index + 1] == 'M'):
                     sum -= 200
 
-            sum += Roman[romanList[index]]
+            sum += roman[roman_list[index]]
         return sum
