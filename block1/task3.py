@@ -1,13 +1,9 @@
 class Solution(object):
 
     def maximum_wealth(self, accounts):
-        richest = 0
+        bank = []
         for acc in accounts:
-            bank = 0
+            bank.append(sum(acc))
 
-            for money in acc:
-                bank += money
-            if bank > richest:
-                richest = bank
-
+        richest = max(bank)
         return richest

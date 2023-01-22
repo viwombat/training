@@ -9,15 +9,15 @@ class Solution:
                  'M': 1000}
 
         roman_list = [char for char in s]
-        sum = 0
+        number = 0
         for index in range(len(roman_list)):
             if index != len(roman_list) - 1:
                 if roman_list[index] == 'I' and (roman_list[index + 1] == 'V' or roman_list[index + 1] == 'X'):
-                    sum -= 2
+                    number -= 2
                 elif roman_list[index] == 'X' and (roman_list[index + 1] == 'L' or roman_list[index + 1] == 'C'):
-                    sum -= 20
+                    number -= 20
                 elif roman_list[index] == 'C' and (roman_list[index + 1] == 'D' or roman_list[index + 1] == 'M'):
-                    sum -= 200
+                    number -= 200
 
-            sum += roman[roman_list[index]]
-        return sum
+            number += roman[roman_list[index]]
+        return number
