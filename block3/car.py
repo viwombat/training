@@ -22,7 +22,12 @@ class Car:
 
     __brand = "some_brand"
 
-    def __init__(self, car_type, color, engine, year, month):
+    def __init__(self,
+                 car_type: str,
+                 color: str,
+                 engine: str,
+                 year: str,
+                 month: str):
 
         self.car_type = car_type
         self.color = color
@@ -30,7 +35,7 @@ class Car:
         self.year = year
         self.month = month
 
-    def vin_generator(self):
+    def vin_generator(self) -> str:
         unique_num = str(int(random() * 1000000))
         vin_code = self.car_type[0] + '-' + self.color[0] + '-' + self.year + '-' + self.month + '-' + unique_num
         return vin_code
@@ -51,6 +56,7 @@ class Car:
               f'{self.car_type}, {self.color}, {self.__brand}, {self.engine.model_name})')
 
 
-engine1 = Engine("model1", "2cyl", 40, 5, 10000)
-engine2 = Engine("model2", "3cyl", 50, 10, 5000)
-engine4 = ModernEngine("model4", "4cyl", 60, 15, 1000, 100)
+engine1 = Engine("model1", 2, 40, 5, "5")
+engine2 = Engine("model2", 3, 50, 10, "2")
+engine4 = ModernEngine("model4", 4, 60, 15, "1", 100)
+car = Car("Audi", "blue", engine1, "2020", "05")

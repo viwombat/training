@@ -9,7 +9,12 @@ Add description at docstring.
 
 class Engine:
 
-    def __init__(self, model_name, number_of_cylinders, engine_displacement, engine_resource, fuel_type):
+    def __init__(self,
+                 model_name: str,
+                 number_of_cylinders: int,
+                 engine_displacement: float,
+                 engine_resource: float,
+                 fuel_type: str):
 
         self.model_name = model_name
         self.number_of_cylinders = number_of_cylinders
@@ -23,4 +28,3 @@ class Engine:
         print(f'The model is"{self.model_name}" model. The Engine has {self.number_of_cylinders} cylinders, ' 
               f'{self.engine_displacement} engine_displacement, resource is {self.engine_resource} km, ' 
               f'fuel type: "{self.fuel_type}"')
-

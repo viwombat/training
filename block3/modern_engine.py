@@ -6,28 +6,33 @@ engine resource an engine has if we know the current engine mileage of a car.
 """
 
 import itertools
+import uuid
+
 from engine import Engine
 
 
 class ModernEngine(Engine):
 
-    unique_number = itertools.count()
-
-    def __init__(self, model_name,
-                 number_of_cylinders,
-                 engine_displacement,
-                 engine_resource,
-                 fuel_type,
-                 current_engine_mileage):
+    def __init__(self,
+                 model_name: str,
+                 number_of_cylinders: int,
+                 engine_displacement: float,
+                 engine_resource: float,
+                 fuel_type: str,
+                 current_engine_mileage: float):
         super().__init__(model_name, number_of_cylinders, engine_displacement, engine_resource, fuel_type)
 
-        self.unique_number = next(ModernEngine.unique_number)
+        self.unique_number = uuid.uuid4()
         self.current_engine_mileage = current_engine_mileage
 
-    def increase_miles(self, kilometers):
+    def increase_miles(self, kilometers: float):
         self.current_engine_mileage += kilometers
         return self.current_engine_mileage
 
+    @property
+    def current_engine_resource(self) -> float:
+        return self.engine_resource
+
+    @current_engine_resource.setter
     def current_engine_resource(self):
         self.engine_resource -= self.current_engine_mileage
-        return self.engine_resource
