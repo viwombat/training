@@ -7,14 +7,12 @@ my_dict = {
     'third_key': 'third_value'
 }
 
-some_dict = deepcopy(my_dict)
+some_dict = dict(my_dict)
 new_dict = {value: key for key, value in my_dict.items()}
-
 
 # TODO 2. Create a list from my dict keys
 
-keys_list = [key for key, value in my_dict.items()]
-
+keys_list = list(new_dict.keys())
 
 # TODO 3. Create two lists with 5 items in them. Create a dict from those two lists.
 
@@ -23,12 +21,10 @@ second_list = ['a', 'b', 'c', 'd', 'e']
 
 final_dict = dict(zip(first_list, second_list))
 
-
 # TODO 4. Create a list. Create lambda function that square each element of the list.
 
 list_of_nums = [1, 2, 3, 4, 5]
 doubled_list = list(map(lambda n: n ** 2, list_of_nums))
-
 
 # TODO 5. Create a function that takes all positional arguments and returns their sum.
 #  If a value is not number - skip it (use try/except statement).
@@ -41,14 +37,14 @@ fifth_arg = '23'
 
 
 def summer(*args):
-    sum = 0
+    answer = 0
 
     for arg in args:
         try:
-            sum += arg
+            answer += arg
         except TypeError:
             print("Not a number")
-    print(sum)
+    print(answer)
 
 
 summer(first_arg, second_arg, third_arg, fourth_arg, fifth_arg)
@@ -57,22 +53,37 @@ summer(first_arg, second_arg, third_arg, fourth_arg, fifth_arg)
 # TODO 6. Create a function foo_1, that takes function foo_2 as a required argument.
 #  foo_1 should return result of execution foo_2.
 
-ARG = 2
+
+def foo_1():
+    def foo_2():
+        print("Hi")
+
+    return foo_2
 
 
-def foo_2(x):
-    print(x ** 2)
-
-
-def foo_1(func):
-    return func
-
-
-foo_1(foo_2(ARG))
+foo_1()
 
 
 # TODO 7. Create a function that takes any number of positional and keywords arguments.
 #  Check keywords arguments, if there are functions among them, call each function and pass
 #  all positional arguments as arguments.
 
-# TBD, have no idea
+def foo(*args):
+    print(args)
+
+
+def some_interesting_function(*args):
+    funcs = []
+    arguments = []
+
+    for arg in args:
+        if isinstance(arg, (str, float, list, int)):
+            arguments.append(arg)
+        else:
+            funcs.append(arg)
+
+    for func in funcs:
+        func(*arguments)
+
+
+some_interesting_function(foo, "def", 1)
