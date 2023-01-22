@@ -72,18 +72,16 @@ def foo(*args):
     print(args)
 
 
-def some_interesting_function(*args):
-    funcs = []
-    arguments = []
+def some_interesting_function(*args, **kwargs):
 
-    for arg in args:
-        if isinstance(arg, (str, float, list, int)):
-            arguments.append(arg)
-        else:
-            funcs.append(arg)
+    arguments = [arg for arg in args if isinstance(arg, (str, float, list, int))]
 
-    for func in funcs:
-        func(*arguments)
+    for func in kwargs.values():
+        try:
+            f = globals()[func]
+            f(*arguments)
+        except TypeError:
+            print("Not a func")
 
 
-some_interesting_function(foo, "def", 1)
+some_interesting_function(foo, "def", 1, func1=input(), func2=input())
