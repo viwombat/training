@@ -4,6 +4,4 @@ class Solution:
         weak_list = {index: num.count(1) for index, num in enumerate(mat)}
         weak_list.sort(key=lambda x: x[1])
 
-        answer = [index for index, num in weak_list]
-
-        return answer[:k]
+        return [index for index, num in weak_list][:k]
