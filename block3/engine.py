@@ -14,7 +14,7 @@ class Engine:
                  number_of_cylinders: int,
                  engine_displacement: float,
                  engine_resource: float,
-                 fuel_type: str):
+                 fuel_type: str) -> None:
 
         self.model_name = model_name
         self.number_of_cylinders = number_of_cylinders
@@ -22,7 +22,7 @@ class Engine:
         self.engine_resource = engine_resource
         self.fuel_type = fuel_type
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         """The description of an engine"""
 
         print(f'The model is"{self.model_name}" model. The Engine has {self.number_of_cylinders} cylinders, ' 

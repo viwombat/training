@@ -19,13 +19,13 @@ class ModernEngine(Engine):
                  engine_displacement: float,
                  engine_resource: float,
                  fuel_type: str,
-                 current_engine_mileage: float):
+                 current_engine_mileage: float) -> None:
         super().__init__(model_name, number_of_cylinders, engine_displacement, engine_resource, fuel_type)
 
         self.unique_number = uuid.uuid4()
         self.current_engine_mileage = current_engine_mileage
 
-    def increase_miles(self, kilometers: float):
+    def increase_miles(self, kilometers: float) -> float:
         self.current_engine_mileage += kilometers
         return self.current_engine_mileage
 
@@ -34,5 +34,5 @@ class ModernEngine(Engine):
         return self.engine_resource
 
     @current_engine_resource.setter
-    def current_engine_resource(self):
+    def current_engine_resource(self) -> None:
         self.engine_resource -= self.current_engine_mileage

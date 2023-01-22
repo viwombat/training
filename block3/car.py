@@ -13,6 +13,7 @@ Update the string representation of the Car class to
 
 from datetime import date
 from random import random
+from typing import Union
 
 from modern_engine import ModernEngine
 from engine import Engine
@@ -25,9 +26,9 @@ class Car:
     def __init__(self,
                  car_type: str,
                  color: str,
-                 engine: str,
+                 engine: Union[Engine, ModernEngine],
                  year: str,
-                 month: str):
+                 month: str) -> None:
 
         self.car_type = car_type
         self.color = color
@@ -37,19 +38,19 @@ class Car:
 
     def vin_generator(self) -> str:
         unique_num = str(int(random() * 1000000))
-        vin_code = self.car_type[0] + '-' + self.color[0] + '-' + self.year + '-' + self.month + '-' + unique_num
+        vin_code = f"{self.car_type[0]}-{self.color[0]}-{self.year}-{self.month}-{unique_num}"
         return vin_code
 
     @classmethod
-    def rename_brand(cls, new_name):
+    def rename_brand(cls, new_name) -> None:
         cls._brand = new_name
 
     @staticmethod
-    def some_static_method():
+    def some_static_method() -> date:
         current_day = date.today()
         return current_day
 
-    def __str__(self):
+    def __str__(self) -> None:
         """The description of a car"""
         print(f'Car "{self.__brand}". '
               f'(Vin code: {self.vin_generator()} - '
