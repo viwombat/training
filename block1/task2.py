@@ -1,6 +1,6 @@
 class Solution(object):
 
-    def numberOfSteps(self, num):
+    def number_of_steps(self, num):
         steps = 0
         while num != 0:
             if num % 2 == 0:
