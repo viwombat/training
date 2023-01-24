@@ -52,16 +52,15 @@ summer(first_arg, second_arg, third_arg, fourth_arg, fifth_arg)
 
 # TODO 6. Create a function foo_1, that takes function foo_2 as a required argument.
 #  foo_1 should return result of execution foo_2.
+def foo_2():
+    print("Hi")
 
 
-def foo_1():
-    def foo_2():
-        print("Hi")
-
-    return foo_2
+def foo_1(func):
+    return func()
 
 
-foo_1()
+foo_1(foo_2)
 
 
 # TODO 7. Create a function that takes any number of positional and keywords arguments.
@@ -74,14 +73,13 @@ def foo(*args):
 
 def some_interesting_function(*args, **kwargs):
 
-    arguments = [arg for arg in args if isinstance(arg, (str, float, list, int))]
-
     for func in kwargs.values():
-        try:
-            f = globals()[func]
-            f(*arguments)
-        except TypeError:
-            print("Not a func")
+        if callable(func):
+            func(*args)
+        # try:
+        #     func(*args)
+        # except TypeError:
+        #     print("Not a func")
 
 
-some_interesting_function(foo, "def", 1, func1=input(), func2=input())
+some_interesting_function(foo, "def", 1, func1=foo, func2="hi")
