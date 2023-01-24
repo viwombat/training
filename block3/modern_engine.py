@@ -31,8 +31,4 @@ class ModernEngine(Engine):
 
     @property
     def current_engine_resource(self) -> float:
-        return self.engine_resource
-
-    @current_engine_resource.setter
-    def current_engine_resource(self) -> None:
-        self.engine_resource -= self.current_engine_mileage
+        return self.engine_resource - self.current_engine_mileage
