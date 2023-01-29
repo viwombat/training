@@ -32,7 +32,12 @@ class Car:
         self.brand = brand
         self.car_type = car_type
         self.color = color
-        self.engine = engine
+        self.engine = ModernEngine(engine.model_name,
+                                   engine.number_of_cylinders,
+                                   engine.engine_displacement,
+                                   engine.engine_resource,
+                                   engine.fuel_type,
+                                   engine.current_engine_mileage)
         self.year = year
         self.month = month
 
@@ -58,9 +63,16 @@ engine1 = Engine("model1", 2, 40, 5, "5")
 engine2 = Engine("model2", 3, 50, 10, "2")
 engine4 = ModernEngine("model4", 4, 60, 15, "1", 100)
 
-car = Car("Audi", "some_car_type", "blue", copy.deepcopy(engine1), "2020", "05")
+car1 = Car("Audi", "some_car_type1", "blue", engine4, "2020", "01")
+car2 = Car("BMW", "some_car_type2", "white", engine4, "2021", "02")
+car3 = Car("Renault", "some_car_type3", "black", engine4, "2022", "03")
 
-engine1.model_name = "modelmodel"
 
-print(engine1.model_name)
-print(car.engine.model_name)
+print(f'{car1.engine.current_engine_mileage},{car2.engine.current_engine_mileage},{car3.engine.current_engine_mileage}')
+
+car1.engine.increase_miles(100)
+print(f'{car1.engine.current_engine_mileage},{car2.engine.current_engine_mileage},{car3.engine.current_engine_mileage}')
+car2.engine.increase_miles(100)
+print(f'{car1.engine.current_engine_mileage},{car2.engine.current_engine_mileage},{car3.engine.current_engine_mileage}')
+car3.engine.increase_miles(300)
+print(f'{car1.engine.current_engine_mileage},{car2.engine.current_engine_mileage},{car3.engine.current_engine_mileage}')
