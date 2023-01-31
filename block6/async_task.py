@@ -26,10 +26,12 @@ async def fetch(client, book):
 
 async def main():
     start = time.time()
-    async with aiohttp.ClientSession() as client:
-        for isbn in LIST_ISBN:
-            html = await fetch(client, isbn)
 
+    async with aiohttp.ClientSession() as client:
+
+        info = await asyncio.gather(*(fetch(client, isbn) for isbn in LIST_ISBN))
+
+        for html in info:
             soup = BeautifulSoup(html, 'html.parser')
             name = soup.find('h1', class_='work-title')
             author = soup.find('a', itemprop="author")
@@ -39,7 +41,7 @@ async def main():
 
     print(f'The task took: {round(time.time() - start, 2)} sec')
 
-
-loop = asyncio.new_event_loop()
-loop.run_until_complete(main())
-loop.close()
+asyncio.run(main())
+# loop = asyncio.new_event_loop()
+# loop.run_until_complete(main())
+# loop.close()
