@@ -7,23 +7,23 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('block7', '0001_initial'),
+        ('game', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='game',
             name='publisher',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='block7.publisher'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='game.publisher'),
         ),
         migrations.AddField(
             model_name='genre',
             name='games',
-            field=models.ManyToManyField(to='block7.game'),
+            field=models.ManyToManyField(to='game.game'),
         ),
         migrations.AddField(
             model_name='user',
             name='games',
-            field=models.ManyToManyField(to='block7.game'),
+            field=models.ManyToManyField(to='game.game'),
         ),
     ]
