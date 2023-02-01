@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'block7'
+    'game',
+    'publisher',
+    'user',
+    'genre'
 ]
 
 MIDDLEWARE = [
@@ -77,11 +80,11 @@ WSGI_APPLICATION = 'task_django_game.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'btgC6sbNY55wljyMtxHp',
-        'HOST': 'containers-us-west-70.railway.app',
-        'PORT': '6252',
+        'NAME': 'db_block7',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '6543',
     }
 }
 
