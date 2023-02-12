@@ -8,4 +8,4 @@ class User(models.Model):
     nickname = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
     age = models.IntegerField()
-    games = models.ManyToManyField(Game)
+    game = models.ManyToManyField(Game, through='game_rate.GameRate')

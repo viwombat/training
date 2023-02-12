@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'game',
     'publisher',
     'user',
-    'genre'
+    'genre',
+    'game_rate',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ DATABASES = {
         'USER': 'user',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '6543',
+        'PORT': '5432',
     }
 }
 
