@@ -5,7 +5,6 @@ from user.models import User
 from user.serializer import UserSerializer
 
 
-# Create your views here.
 class UserViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = User.objects.all()
