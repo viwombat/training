@@ -1,8 +1,11 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status, viewsets
+from django.db.models import Q
 
 from user.models import User
 from user.serializer import UserSerializer
+from game.models import Game
 
 
 class UserViewSet(viewsets.ViewSet):
@@ -33,3 +36,17 @@ class UserViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class UserInfoViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        games = Game.objects.filter(user=user)
+        game_names = [game.name for game in games]
+        user_data = UserSerializer(user).data
+
+        response_data = {
+            'user': user_data,
+            'games': game_names
+        }
+        return Response(response_data, status=status.HTTP_200_OK)

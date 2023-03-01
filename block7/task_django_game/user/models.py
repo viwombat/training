@@ -9,3 +9,6 @@ class User(models.Model):
     email = models.CharField(max_length=100)
     age = models.IntegerField()
     game = models.ManyToManyField(Game, through='game_rate.GameRate')
+
+    def __str__(self):
+        return self.nickname

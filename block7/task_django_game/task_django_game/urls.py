@@ -19,20 +19,29 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.routers import SimpleRouter
 
 from game.views import GameViewSet
+from game.views import PublisherGamesRateViewSet
+from game.views import UsersAvgAgeViewSet
 from user.views import UserViewSet
+from user.views import UserInfoViewSet
 from publisher.views import PublisherAPIView
 import genre.views
 
+
 router = SimpleRouter()
+
 router.register(r'games', GameViewSet, basename='game')
 router.register(r'users', UserViewSet, basename='user')
+router.register(r'user_info', UserInfoViewSet, basename='user-info')
+router.register(r'games_rate', PublisherGamesRateViewSet, basename='user-info')
+router.register(r'users_age', UsersAvgAgeViewSet, basename='users-age')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('genres/', genre.views.genres_list),
     path('genres/<int:pk>/', genre.views.genres_details),
     path('publishers/', PublisherAPIView.as_view(), name='publisher-list'),
-    path('publishers/<int:pk>/', PublisherAPIView.as_view(), name='publisher-detail')
+    path('publishers/<int:pk>/', PublisherAPIView.as_view(), name='publisher-detail'),
 ]
 
 urlpatterns += router.urls

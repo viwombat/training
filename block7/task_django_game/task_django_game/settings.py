@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user',
     'genre',
     'game_rate',
+    'game_genre',
 ]
 
 MIDDLEWARE = [

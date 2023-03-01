@@ -9,3 +9,6 @@ class Game(models.Model):
     price = models.FloatField()
     release_date = models.DateField()
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
