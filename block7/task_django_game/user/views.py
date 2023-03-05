@@ -1,7 +1,7 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status, viewsets
-from django.db.models import Q
 
 from user.models import User
 from user.serializer import UserSerializer
@@ -41,8 +41,7 @@ class UserViewSet(viewsets.ViewSet):
 class UserInfoViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk):
         user = get_object_or_404(User, pk=pk)
-        games = Game.objects.filter(user=user)
-        game_names = [game.name for game in games]
+        game_names = [game.name for game in Game.objects.filter(user=user)]
         user_data = UserSerializer(user).data
 
         response_data = {

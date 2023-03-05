@@ -1,13 +1,10 @@
-from django.db.models import Avg
+from django.db.models import Avg, Prefetch
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 
 from game.models import Game
 from game.serializer import GameSerializer
 from game_rate.models import GameRate
-from user.models import User
-
-from user.serializer import UserSerializer
 
 
 class GameViewSet(viewsets.ViewSet):
@@ -42,12 +39,9 @@ class GameViewSet(viewsets.ViewSet):
 
 class PublisherGamesRateViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
-        games = Game.objects.filter(publisher__pk=pk)
-        avg_rate = GameRate.objects.filter(game__in=games).aggregate(Avg('rate'))
-        # games_data = [GameSerializer(game).data for game in games]
+        avg_rate = GameRate.objects.filter(game__publisher__pk=pk).aggregate(Avg('rate'))
 
         response_data = {
-            # 'games': games_data,
             'avg_rate': avg_rate
         }
 
@@ -56,12 +50,11 @@ class PublisherGamesRateViewSet(viewsets.ViewSet):
 
 class UsersAvgAgeViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
-        games = Game.objects.filter(publisher__pk=pk)
-        users = GameRate.objects.filter(game__in=games).values('user')
-        avg_age = User.objects.filter(id__in=users).aggregate(Avg('age'))
+        avg_age = GameRate.objects.prefetch_related('user', 'game')\
+            .filter(game__publisher__pk=pk).aggregate(Avg('user__age'))
 
         response_data = {
-            'avg_age': avg_age
+            'avg_age': avg_age.values()
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
