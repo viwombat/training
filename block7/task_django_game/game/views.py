@@ -1,10 +1,20 @@
 from django.db.models import Avg, Prefetch
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, BasePermission
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 
 from game.models import Game
 from game.serializer import GameSerializer
 from game_rate.models import GameRate
+
+
+class IsAdminOr403(BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_authenticated and request.user.is_staff:
+            return True
+        else:
+            raise PermissionDenied('Error 403 - Not admin error')
 
 
 class GameViewSet(viewsets.ViewSet):
@@ -36,6 +46,8 @@ class GameViewSet(viewsets.ViewSet):
         except Game.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    permission_classes = (IsAdminOr403, )
+
 
 class PublisherGamesRateViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
@@ -46,6 +58,8 @@ class PublisherGamesRateViewSet(viewsets.ViewSet):
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
+
+    permission_classes = (IsAdminOr403,)
 
 
 class UsersAvgAgeViewSet(viewsets.ViewSet):
@@ -58,3 +72,5 @@ class UsersAvgAgeViewSet(viewsets.ViewSet):
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
+
+    permission_classes = (IsAdminOr403, )
