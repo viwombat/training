@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 
@@ -37,6 +38,8 @@ class UserViewSet(viewsets.ViewSet):
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    permission_classes = (IsAuthenticated, )
+
 
 class UserInfoViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk):
@@ -49,3 +52,5 @@ class UserInfoViewSet(viewsets.ViewSet):
             'games': game_names
         }
         return Response(response_data, status=status.HTTP_200_OK)
+
+    permission_classes = (IsAuthenticated, )

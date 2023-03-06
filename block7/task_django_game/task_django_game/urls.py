@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from rest_framework.generics import ListCreateAPIView
 from rest_framework.routers import SimpleRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from game.views import GameViewSet
 from game.views import PublisherGamesRateViewSet
@@ -42,6 +42,9 @@ urlpatterns = [
     path('genres/<int:pk>/', genre.views.genres_details),
     path('publishers/', PublisherAPIView.as_view(), name='publisher-list'),
     path('publishers/<int:pk>/', PublisherAPIView.as_view(), name='publisher-detail'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
 urlpatterns += router.urls
