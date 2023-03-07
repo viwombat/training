@@ -134,8 +134,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': '/Users/vikto/PycharmProjects/'
-                        '.MENTORSHIP/training/block7/task_django_game/task_django_game/logger.txt',
+            'filename': f'{BASE_DIR}/logs/logger.txt',
             'level': 'DEBUG',
         },
     },
@@ -144,6 +143,7 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
+            'debug': True,
         },
     },
 }

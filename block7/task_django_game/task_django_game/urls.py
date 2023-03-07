@@ -19,11 +19,10 @@ from rest_framework.routers import SimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from game.views import GameViewSet
-from game.views import PublisherGamesRateViewSet
-from game.views import UsersAvgAgeViewSet
+from user.views import UsersAvgAgeViewSet
 from user.views import UserViewSet
-from user.views import UserInfoViewSet
 from publisher.views import PublisherAPIView
+from publisher.views import PublisherGamesRateViewSet
 import genre.views
 
 
@@ -31,7 +30,6 @@ router = SimpleRouter()
 
 router.register(r'games', GameViewSet, basename='game')
 router.register(r'users', UserViewSet, basename='user')
-router.register(r'user_info', UserInfoViewSet, basename='user-info')
 router.register(r'games_rate', PublisherGamesRateViewSet, basename='user-info')
 router.register(r'users_age', UsersAvgAgeViewSet, basename='users-age')
 

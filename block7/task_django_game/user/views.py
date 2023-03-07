@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,6 +7,7 @@ from rest_framework import status, viewsets
 from user.models import User
 from user.serializer import UserSerializer
 from game.models import Game
+from game_rate.models import GameRate
 
 
 class UserViewSet(viewsets.ViewSet):
@@ -41,16 +42,13 @@ class UserViewSet(viewsets.ViewSet):
     permission_classes = (IsAuthenticated, )
 
 
-class UserInfoViewSet(viewsets.ViewSet):
-    def retrieve(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        game_names = [game.name for game in Game.objects.filter(user=user)]
-        user_data = UserSerializer(user).data
+class UsersAvgAgeViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
+        avg_age = GameRate.objects.prefetch_related('user', 'game') \
+            .filter(game__publisher__pk=pk).aggregate(Avg('user__age'))
 
         response_data = {
-            'user': user_data,
-            'games': game_names
+            'avg_age': avg_age.values()
         }
-        return Response(response_data, status=status.HTTP_200_OK)
 
-    permission_classes = (IsAuthenticated, )
+        return Response(response_data, status=status.HTTP_200_OK)

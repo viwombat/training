@@ -7,7 +7,7 @@ from genre.serializer import GenreSerializer
 
 
 @api_view(['GET', 'POST'])
-def genres_list(request, pk=None):
+def genres_list(request):
     if request.method == 'GET':
         queryset = Genre.objects.all()
         serializer = GenreSerializer(queryset, many=True)

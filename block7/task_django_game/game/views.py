@@ -47,30 +47,3 @@ class GameViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     permission_classes = (IsAdminOr403, )
-
-
-class PublisherGamesRateViewSet(viewsets.ViewSet):
-    def retrieve(self, request, pk=None):
-        avg_rate = GameRate.objects.filter(game__publisher__pk=pk).aggregate(Avg('rate'))
-
-        response_data = {
-            'avg_rate': avg_rate
-        }
-
-        return Response(response_data, status=status.HTTP_200_OK)
-
-    permission_classes = (IsAdminOr403,)
-
-
-class UsersAvgAgeViewSet(viewsets.ViewSet):
-    def retrieve(self, request, pk=None):
-        avg_age = GameRate.objects.prefetch_related('user', 'game')\
-            .filter(game__publisher__pk=pk).aggregate(Avg('user__age'))
-
-        response_data = {
-            'avg_age': avg_age.values()
-        }
-
-        return Response(response_data, status=status.HTTP_200_OK)
-
-    permission_classes = (IsAdminOr403, )
